@@ -56,9 +56,23 @@ public class kNN {
 
   public int[] predict(int k, double[][] Xtt) {
 
-    // KNN GOES HERE
+    int[] Ypred = new int[Xtt.length]; // initialise predictions vector
 
-    int[] Ytt = new int[Xtt.length];
-    return this.Ytr;
+    for(int i=0; i<Xtt.length; i++) {
+      double[] nearest_vals = new double[k]; // initialise distances vector for point i
+      int[] nearest_inds = new int[k]; // initialise index vector for neighbours of i
+
+      for(int j=0;, j<k, j++) { // fill in first k distances into nearest
+        nearest_vals[j] = this.euc_dist(Xtt[i], this.Xtr[j]);
+        nearest_inds[j] = j;
+      }
+
+      for (int j=k; j<N; j++) { // calculate distances to each training point
+        current = this.euc_dist(Xtt[i], this.Xtr[j]);
+        
+      }
+    }
+
+    return Ypred;
   }
 }

@@ -69,7 +69,7 @@ public class kNN {
 
       for (int j=k; j<N; j++) { // calculate distances to each training point
         current = this.euc_dist(Xtt[i], this.Xtr[j]);
-        
+
       }
     }
 

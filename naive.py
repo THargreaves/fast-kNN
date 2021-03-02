@@ -31,8 +31,8 @@ y_pred = []
 start = time.time()
   
 # kNN implementation
-selected = [False for i in range(N)]
 for X0 in X_test:
+    selected = [False for i in range(N)]
     neighbour_values = []
     for k in range(K):
         neighest = None  # (i, X, y, d)

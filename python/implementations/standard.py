@@ -14,5 +14,5 @@ class Standard(Base):
                 d = self.distance(x0, x)
                 neighbour_values.append((d, y))
             neighbour_values.sort(key=lambda e: e[0])
-            pred.append(sum(e[1] for e in neighbour_values) / K)
+            pred.append(sum(e[1] for e in neighbour_values[:K]) / K)
         return pred

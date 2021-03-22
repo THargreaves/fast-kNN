@@ -17,9 +17,9 @@ class Naive(Base):
                     if selected[i]:
                         continue
                     d = self.distance(x0, x)
-                    if nearest is None or d < nearest[2]:
+                    if nearest is None or d < nearest[3]:
                         nearest = i, x, y, d
-                selected[i] = True
-                neighbour_values.append(y)
+                selected[nearest[0]] = True
+                neighbour_values.append(nearest[2])
             pred.append(sum(neighbour_values) / K)
         return pred

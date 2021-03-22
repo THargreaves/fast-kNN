@@ -29,18 +29,19 @@ class TriangleInequality(Base):
                 if not possible[i]:
                     continue
                 d = math.sqrt(self.distance(x0, x))
-                if i > K:
+                if i >= K:
                     for j in range(self.N - (i + 1)):
                         if not possible[j]:
                             continue
                         if abs(d - self.train_dist[i][j]) >\
                                 curr_neighbours[K - 1][3]:
-                            possible[j] = False
+                            possible[j + i + 1] = False
                 for k in range(K):
                     if curr_neighbours[k] is None or \
                             curr_neighbours[k][3] > d:
                         curr_neighbours.insert(k, (i, x, y, d))
                         del curr_neighbours[K]
+                        break
 
             pred.append(sum(e[2] for e in curr_neighbours) / K)
         return pred

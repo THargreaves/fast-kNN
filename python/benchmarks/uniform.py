@@ -19,8 +19,8 @@ if __name__ == "__main__":
     X_train = [[random.gauss(0, 1)
                 for d in range(D)]
                for n in range(N)]
-    y_train = [random.gauss(0, 1) for n in range(N)]
-    X_test = [[random.gauss(0, 1)
+    y_train = [random.uniform(0, 1) for n in range(N)]
+    X_test = [[random.uniform(0, 1)
                for d in range(D)]
               for n in range(M)]
     y_pred = []

@@ -1,3 +1,5 @@
+// An abstract base class for other kNN implementations.
+
 public abstract class Base {
 
   protected double[][] X_train; // training data
@@ -28,10 +30,16 @@ public abstract class Base {
 
   // distance function
 
-  protected abstract double distance(double[] x1, double[] x2);
+  protected static double dist(double[] x1, double[] x2) {
+    double dist = 0;
+    for(int i=0; i<x1.length; i++) {
+      dist += ((x1[i] - x2[i])*(x1[i] - x2[i]));
+    }
+    return Math.sqrt(dist);
+  }
 
   // predict method
 
-  public abstract int[] predict(double[][] X_test, int k);
+  public abstract double[] predict(double[][] X_test, int k);
 
 }

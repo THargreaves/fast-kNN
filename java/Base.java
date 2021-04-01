@@ -20,11 +20,11 @@ public abstract class Base {
 
   // getters
 
-  public double[][] getTrain() {
+  public double[][] getXTrain() {
     return this.X_train;
   }
 
-  public int[] getTest() {
+  public int[] getYTrain() {
     return this.y_train;
   }
 

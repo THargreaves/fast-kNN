@@ -14,6 +14,7 @@ public class Naive extends Base {
 
     for(int j=0; j<X_test.length; j++) {
       boolean[] selected = new boolean[this.N];
+      for(int e=0; e<selected.length; e++) {selected[e] = false;}
       double[] neighbour_values = new double[0];
 
       for(int k=0; k<K; k++) {

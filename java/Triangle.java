@@ -10,9 +10,9 @@ public class Triangle extends Base {
 
   public Triangle(double[][] X_train, int[] y_train) {
     super(X_train, y_train);
-    // I know this is inefficient but what are you gonna do
-    for(int i=0; i<X_train.length; i++) {
-      for(int j=0; j<y_train.length; j++) {
+
+    for(int i=0; i<(X_train.length-1); i++) {
+      for(int j=0; j<i+1; j++) {
         this.train_dist[i][j] = this.dist(X_train[i], X_train[j]);
       }
     }
@@ -24,8 +24,11 @@ public class Triangle extends Base {
 
     for(int j=0; j<X_test.length; j++) {
       boolean[] possible = new boolean[this.N];
-      for(int e=0; e<selected.length; e++) {possible[e] = true;}
-      double[][] curr_neighbours = new int[K][4];
+      for(int e=0; e<possible.length; e++) {possible[e] = true;}
+      int[] curr_i = new int[K];
+      double[][] curr_x = new double[K][this.P];
+      double[] curr_y = new double[K];
+      double[] curr_d = new double[K];
 
       for(int i=0; i<this.X_train.length; i++) {
         if (!possible[i]) {continue;}
@@ -34,61 +37,63 @@ public class Triangle extends Base {
         if(i>=K) {
           for(int l=0; l<(N-(i+1)); l++) {
             if (!possible[l]) {continue;}
-            if (Math.abs(d - self.train_dist[i][l] > curr_neighbours[K-1][3])) {
+            if (Math.abs(d - this.train_dist[i][l]) > curr_d[K-1]) {
               possible[i + l + 1] = false;
             }
           }
         }
 
         for(int k=0; k<K; k++) {
-          double[] tester = new double[4];
-          if(Arrays.equals(curr_neighbours[k], tester) ||
-             curr_neighbours[k][3] > d) {
-               curr_neighbours[k][0] = i;
-               curr_neighbours[k][1] = this.X_train[i];
-               curr_neighbours[k][2] = this.y_train[i];
-               curr_neighbours[k][3] = d;
+          int[] test_i = new int[K];
+          double[][] test_x = new double[K][this.P];
+          double[] test_y = new double[K];
+          double[] test_d = new double[K];
+          if(((curr_i[k] == test_i[k]) &&
+              Arrays.equals(curr_x[k], test_x[k]) &&
+              (curr_y[k] == test_y[k]) &&
+              (curr_d[k] == test_d[k])) ||
+             curr_d[k] > d) {
+               curr_i[k] = i;
+               curr_x[k] = this.X_train[i];
+               curr_y[k] = this.y_train[i];
+               curr_d[k] = d;
 
                // this is the irritating way to delete elements of an array in Java :(
 
-               double[][] temp = new double[(curr_neighbours.length - 1)][4];
-               for(int t=0; t<curr_neighbours.length-1; t++) {
-                 temp[t][0] = curr_neighbours[t][0];
-                 temp[t][1] = curr_neighbours[t][1];
-                 temp[t][2] = curr_neighbours[t][2];
-                 temp[t][3] = curr_neighbours[t][3];
+               int[] temp_i = new int[K-1];
+               double[][] temp_x = new double[K-1][this.P];
+               double[] temp_y = new double[K-1];
+               double[] temp_d = new double[K-1];
+               for(int t=0; t<curr_i.length-1; t++) {
+                 temp_i[t] = curr_i[t];
+                 temp_x[t] = curr_x[t];
+                 temp_y[t] = curr_y[t];
+                 temp_d[t] = curr_d[t];
                }
-               curr_neighbours = temp;
+               curr_i = temp_i;
+               curr_x = temp_x;
+               curr_y = temp_y;
+               curr_d = temp_d;
                break;
              }
+           }
         }
 
-        // this is the irritating way to append values to an array in Java :(
-
-        double[][] temp = new double[(neighbour_values.length + 1)][2];
-        for(int t=0; t<neighbour_values.length; t++) {
-          temp[t][0] = neighbour_values[t][0];
-          temp[t][1] = neighbour_values[t][1];
+        double sum = 0;
+        for (int e=0; e<curr_y.length; e++) {
+          sum += curr_y[e];
         }
-        temp[neighbour_values.length][0] = d;
-        temp[neighbour_values.length][1] = this.y_train[i];
-        neighbour_values = temp;
-      }
-      Arrays.sort(neighbour_values, Comparator.comparingDouble(o -> o[0]));
+        sum /= K;
 
-      double neighbour_sum = 0;
-      for(int i=0; i<K; i++) {
-        neighbour_sum += neighbour_values[i][1];
-      }
+        // more appending incoming
 
-      neighbour_sum /= K;
-      double[] temp2 = new double[(pred.length + 1)];
-      for(int t=0; t<pred.length; t++) {
-        temp2[t] = pred[t];
+        double[] temp = new double[(pred.length + 1)];
+        for(int t=0; t<pred.length; t++) {
+          temp[t] = pred[t];
+        }
+        temp[pred.length] = sum;
+        pred = temp;
       }
-      temp2[pred.length] = neighbour_sum;
-      pred = temp2;
-    }
-    return pred;
+      return pred;
   }
 }

@@ -8,10 +8,10 @@ from implementations import implementations
 
 
 if __name__ == "__main__":
-    N = 500  # training set size
+    N = 2500  # training set size
     M = 100  # test set size
-    D = 3  # dimension of data
-    K = 5  # number of neighbours to use
+    D = 2  # dimension of data
+    K = 1  # number of neighbours to use
     SEED = 42  # random seed
 
     # Generate dataset

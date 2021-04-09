@@ -22,26 +22,32 @@ class TriangleInequality(Base):
         """See Base.predict"""
         pred = []
         for x0 in X_test:
-            possible = [True for i in range(self.N)]
+            possible = [i for i in range(self.N)]
             curr_neighbours = [None for i in range(K)]
 
-            for i, (x, y) in enumerate(zip(self.X_train, self.y_train)):
-                if not possible[i]:
-                    continue
+            i = 0
+            n = self.N
+            while i < n:
+                p = possible[i]
+                x = self.X_train[p]
+                y = self.y_train[p]
                 d = math.sqrt(self.distance(x0, x))
                 if i >= K:
-                    for j in range(self.N - (i + 1)):
-                        if not possible[j]:
-                            continue
-                        if abs(d - self.train_dist[i][j]) >\
+                    j = i + 1
+                    while j < n:
+                        if abs(d - self.train_dist[p][possible[j] - (p + 1)]) >\
                                 curr_neighbours[K - 1][3]:
-                            possible[j + i + 1] = False
+                            del possible[j]
+                            n -= 1
+                        else:
+                            j += 1
                 for k in range(K):
                     if curr_neighbours[k] is None or \
                             curr_neighbours[k][3] > d:
                         curr_neighbours.insert(k, (i, x, y, d))
                         del curr_neighbours[K]
                         break
+                i += 1
 
             pred.append(sum(e[2] for e in curr_neighbours) / K)
         return pred

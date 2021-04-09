@@ -7,8 +7,8 @@ from base import Base
 
 class KDTree(Base):
 
-    def __init__(self, X_train, y_train, distance=None):
-        super().__init__(X_train, y_train, distance)
+    def __init__(self, X_train, y_train):
+        super().__init__(X_train, y_train)
         # Pre-computation of KD tree
         self.root = self._grow_tree(self.X_train, self.y_train)
 

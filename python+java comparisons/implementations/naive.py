@@ -32,5 +32,6 @@ class Naive(Base):
                         nearest = i, x, y, d
                 selected[nearest[0]] = True
                 neighbour_values.append(nearest[2])
+            #print(neighbour_values)
             y_pred.append(sum(neighbour_values) / K)
         return y_pred

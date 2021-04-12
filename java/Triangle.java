@@ -8,7 +8,7 @@ public class Triangle extends Base {
 
   private double[][] train_dist;
 
-  public Triangle(double[][] X_train, int[] y_train) {
+  public Triangle(double[][] X_train, double[] y_train) {
     super(X_train, y_train);
 
     for(int i=0; i<(X_train.length-1); i++) {
@@ -52,7 +52,7 @@ public class Triangle extends Base {
               Arrays.equals(curr_x[k], test_x[k]) &&
               (curr_y[k] == test_y[k]) &&
               (curr_d[k] == test_d[k])) ||
-             curr_d[k] > d) {
+               curr_d[k] > d) {
                curr_i[k] = i;
                curr_x[k] = this.X_train[i];
                curr_y[k] = this.y_train[i];

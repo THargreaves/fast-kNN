@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 public class Standard extends Base {
 
-  public Standard(double[][] X_train, int[] y_train) {
+  public Standard(double[][] X_train, double[] y_train) {
     super(X_train, y_train);
   }
 

@@ -4,7 +4,7 @@ import java.lang.Math;
 
 public class Naive extends Base {
 
-  public Naive(double[][] X_train, int[] y_train) {
+  public Naive(double[][] X_train, double[] y_train) {
     super(X_train, y_train);
   }
 
@@ -20,7 +20,7 @@ public class Naive extends Base {
       for(int k=0; k<K; k++) {
         int nearest_i = -1;
         double[] nearest_x = null;
-        int nearest_y = -1;
+        double nearest_y = -1;
         double nearest_d = -1;
 
         for(int i=0; i<this.X_train.length; i++) {

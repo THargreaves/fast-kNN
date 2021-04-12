@@ -52,21 +52,21 @@ public class java_naive_iris {
     }
 
     double[][] Xtt = new double[test_inds.length][4];
-    int[] Ytt = new int[test_inds.length];
+    double[] Ytt = new double[test_inds.length];
     for(int i=0; i<test_inds.length; i++) {
       Xtt[i] = iris[test_inds[i]];
-      Ytt[i] = (int) iris[test_inds[i]][4];
+      Ytt[i] = iris[test_inds[i]][4];
     }
 
     double[][] Xtr = new double[train_inds.length][4];
-    int[] Ytr = new int[train_inds.length];
+    double[] Ytr = new double[train_inds.length];
     for(int i=0; i<train_inds.length; i++) {
       Xtr[i] = iris[train_inds[i]];
-      Ytr[i] = (int) iris[train_inds[i]][4];
+      Ytr[i] = iris[train_inds[i]][4];
     }
 
     Naive kNN = new Naive(Xtr, Ytr);
-    double[] preds = kNN.predict(Xtt, 3);
+    double[] preds = kNN.predict(Xtt, 5);
 
     System.out.print(Arrays.toString(preds));
 

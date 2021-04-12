@@ -28,6 +28,6 @@ if __name__ == "__main__":
     naive = implementations[0]
 
     kNN = naive(Xtr, Ytr)
-    preds = kNN.predict(Xtt, K=3)
+    preds = kNN.predict(Xtt, K=5)
 
     print(preds)

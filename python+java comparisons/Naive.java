@@ -1,10 +1,11 @@
 // A naive approach to kNN, running in O(mndk) time.
 
 import java.lang.Math;
+import java.util.Arrays;
 
 public class Naive extends Base {
 
-  public Naive(double[][] X_train, int[] y_train) {
+  public Naive(double[][] X_train, double[] y_train) {
     super(X_train, y_train);
   }
 
@@ -18,18 +19,18 @@ public class Naive extends Base {
       double[] neighbour_values = new double[0];
 
       for(int k=0; k<K; k++) {
-        int nearest_i = -1;
+        int nearest_i = 0;
         double[] nearest_x = null;
-        int nearest_y = -1;
-        double nearest_d = -1;
+        double nearest_y = 0;
+        double nearest_d = 0;
 
         for(int i=0; i<this.X_train.length; i++) {
           if (selected[i]) {continue;}
 
           double d = this.dist(X_test[j], this.X_train[i]);
 
-          if(((nearest_i == -1) && (nearest_y == -1) &&
-              (nearest_x == null) && (nearest_d == -1)) || d < nearest_d) {
+          if(((nearest_i == 0) && (nearest_y == 0) &&
+              (nearest_x == null) && (nearest_d == 0)) || d < nearest_d) {
 
                nearest_i = i;
                nearest_x = this.X_train[i];
@@ -48,13 +49,15 @@ public class Naive extends Base {
         temp[neighbour_values.length] = nearest_y;
         neighbour_values = temp;
       }
-      double neighbour_sum = 0;
 
+      double neighbour_sum = 0;
       for(int i=0; i<neighbour_values.length; i++) {
         neighbour_sum += neighbour_values[i];
       }
 
-      neighbour_sum /= K;
+      //System.out.print(Arrays.toString(neighbour_values) + "\n");
+
+      neighbour_sum = (double) neighbour_sum / K;
       double[] temp2 = new double[(pred.length + 1)];
       for(int t=0; t<pred.length; t++) {
         temp2[t] = pred[t];
@@ -64,5 +67,4 @@ public class Naive extends Base {
     }
     return pred;
   }
-
 }

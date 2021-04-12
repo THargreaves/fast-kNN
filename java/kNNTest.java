@@ -14,7 +14,7 @@ public class kNNTest {
     int p = 2; // number of classes
 
     double[][] Xtr = new double[N][d]; // training data
-    int[] Ytr = new int[N]; // training labels
+    double[] Ytr = new double[N]; // training labels
 
     double[][] Xtt = new double[M][d]; // test data
 

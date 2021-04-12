@@ -3,14 +3,14 @@
 public abstract class Base {
 
   protected double[][] X_train; // training data
-  protected int[] y_train; // training labels
+  protected double[] y_train; // training labels
 
   protected int N; // number of training data points
   protected int P; // dimension of training data points
 
   // constructors
 
-  protected Base(double[][] X_train, int[] y_train) {
+  protected Base(double[][] X_train, double[] y_train) {
     this.X_train = X_train;
     this.y_train = y_train;
 
@@ -24,7 +24,7 @@ public abstract class Base {
     return this.X_train;
   }
 
-  public int[] getYTrain() {
+  public double[] getYTrain() {
     return this.y_train;
   }
 
